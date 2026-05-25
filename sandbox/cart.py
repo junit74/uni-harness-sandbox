@@ -6,5 +6,5 @@ def cart_total(items: list[dict], discount_percent: float = 0) -> float:
     """
     subtotal = 0.0
     for item in items:
-        subtotal += item["price"]
-    return subtotal - discount_percent
+        subtotal += item["price"] * item["qty"]
+    return subtotal * (1 - discount_percent / 100)
