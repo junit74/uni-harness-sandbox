@@ -16,6 +16,10 @@
   }
 
   function tweetHTML(t) {
+    var likeCls = "action" + (t.liked ? " liked" : "");
+    var retweetCls = "action" + (t.retweeted ? " retweeted" : "");
+    var bookmarkCls = "action" + (t.bookmarked ? " bookmarked" : "");
+    var likeIcon = t.liked ? "❤️" : "🤍";
     return (
       '<li class="tweet" data-id="' + t.id + '">' +
         '<img class="avatar" src="' + t.avatar + '" alt="" />' +
@@ -29,10 +33,10 @@
           '<p class="tweet-text">' + escapeHtml(t.text) + '</p>' +
           '<div class="tweet-actions">' +
             '<button class="action" data-kind="reply" type="button">💬 <span>' + fmt(t.counts.reply) + '</span></button>' +
-            '<button class="action" data-kind="retweet" type="button">🔁 <span>' + fmt(t.counts.retweet) + '</span></button>' +
-            '<button class="action" data-kind="like" type="button">🤍 <span>' + fmt(t.counts.like) + '</span></button>' +
+            '<button class="' + retweetCls + '" data-kind="retweet" type="button">🔁 <span>' + fmt(t.counts.retweet) + '</span></button>' +
+            '<button class="' + likeCls + '" data-kind="like" type="button">' + likeIcon + ' <span>' + fmt(t.counts.like) + '</span></button>' +
             '<button class="action" data-kind="view" type="button">📊 <span>' + fmt(t.counts.view) + '</span></button>' +
-            '<button class="action" data-kind="bookmark" type="button">🔖</button>' +
+            '<button class="' + bookmarkCls + '" data-kind="bookmark" type="button">🔖</button>' +
           '</div>' +
         '</div>' +
       '</li>'
@@ -42,7 +46,7 @@
   function render() {
     var list = document.getElementById("feed-list");
     if (!list) return;
-    // Always render straight from the seed data.
+    // Always render straight from the in-memory state store.
     var html = window.TWEETS.map(tweetHTML).join("");
     list.innerHTML = html;
   }

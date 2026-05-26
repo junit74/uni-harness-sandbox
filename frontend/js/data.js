@@ -1,6 +1,7 @@
-// Hardcoded seed feed. Treated as the source of truth for renders.
-window.TWEETS = Object.freeze([
-  Object.freeze({
+// Mutable in-memory state store. Treated as the source of truth for renders.
+// Each tweet carries its own counts plus user-action flags (liked/retweeted/bookmarked).
+window.TWEETS = [
+  {
     id: "t-001",
     name: "김지훈",
     handle: "@jihoon_dev",
@@ -8,8 +9,11 @@ window.TWEETS = Object.freeze([
     time: "2h",
     text: "오늘 새로 만든 React 컴포넌트가 드디어 한 번에 동작했다. 보너스로 ESLint도 0 warnings.\n#개발일기",
     counts: { reply: 12, retweet: 4, like: 87, view: 2400 },
-  }),
-  Object.freeze({
+    liked: false,
+    retweeted: false,
+    bookmarked: false,
+  },
+  {
     id: "t-002",
     name: "Sora Park",
     handle: "@sora",
@@ -17,8 +21,11 @@ window.TWEETS = Object.freeze([
     time: "4h",
     text: "디자인 시스템 하나 잘 만들면 PM이랑 싸울 일이 절반으로 줄어든다는 사실, 입사 3년차에 깨달음.",
     counts: { reply: 31, retweet: 22, like: 410, view: 18200 },
-  }),
-  Object.freeze({
+    liked: false,
+    retweeted: false,
+    bookmarked: false,
+  },
+  {
     id: "t-003",
     name: "claude_fan",
     handle: "@anthrofan",
@@ -26,8 +33,11 @@ window.TWEETS = Object.freeze([
     time: "6h",
     text: "AI 에이전트한테 일 시킬 때 가장 중요한 건 결국 success criteria.\n명확한 목표 → 알아서 루프 돔.\n모호한 목표 → 30분마다 사람한테 물어봄.",
     counts: { reply: 58, retweet: 96, like: 1240, view: 52800 },
-  }),
-  Object.freeze({
+    liked: false,
+    retweeted: false,
+    bookmarked: false,
+  },
+  {
     id: "t-004",
     name: "프론트엔드 뉴비",
     handle: "@frontnewbie",
@@ -35,8 +45,11 @@ window.TWEETS = Object.freeze([
     time: "9h",
     text: "CSS Grid 다 이해했다고 생각한 순간 minmax(0, 1fr) 만나서 다시 처음으로 돌아옴.",
     counts: { reply: 7, retweet: 2, like: 54, view: 980 },
-  }),
-  Object.freeze({
+    liked: false,
+    retweeted: false,
+    bookmarked: false,
+  },
+  {
     id: "t-005",
     name: "DevOps 미정",
     handle: "@yet_to_decide",
@@ -44,5 +57,8 @@ window.TWEETS = Object.freeze([
     time: "1d",
     text: "쿠버네티스 도입하지 말걸 그랬다. 서버 3대인데.",
     counts: { reply: 142, retweet: 88, like: 2300, view: 91000 },
-  }),
-]);
+    liked: false,
+    retweeted: false,
+    bookmarked: false,
+  },
+];
