@@ -6,10 +6,10 @@
   --text-muted: #536471;
   --border: #eff3f4;
 
-  /* Brand accent — X-style monochrome. */
+  /* Brand accent — X-style monochrome. Derivatives cascade from --accent. */
   --accent: #0f1419;
-  --accent-hover: #272c30;
-  --accent-soft: rgba(15, 20, 25, 0.1);
+  --accent-hover: color-mix(in srgb, var(--accent) 90%, white);
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
 
   --danger: #f4212e;
   --success: #00ba7c;
@@ -20,5 +20,5 @@
 }
 
 ::selection {
-  background: rgba(15, 20, 25, 0.25);
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
 }
