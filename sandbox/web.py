@@ -14,6 +14,8 @@ from sandbox.cart import cart_total
 HOST = "127.0.0.1"
 PORT = 8765
 
+VERSION = "1.0"
+
 SAMPLE_CART = [
     {"name": "apple", "price": 10.0, "qty": 3},
     {"name": "bread", "price": 5.0, "qty": 2},
@@ -30,6 +32,7 @@ HTML = (
     "{items}"
     "</ul>\n"
     '<p id="cart-total" data-total="{total}">Cart total: {total}</p>\n'
+    '<footer id="footer" data-version="{version}">uni-harness-sandbox v{version}</footer>\n'
     "</body>\n"
     "</html>\n"
 )
@@ -55,7 +58,13 @@ def app(environ, start_response):
     msg = greeting("World")
     total = cart_total(SAMPLE_CART, discount_percent=SAMPLE_DISCOUNT)
     items_html = render_items(SAMPLE_CART)
-    body = HTML.format(title=msg, greeting=msg, total=total, items=items_html).encode("utf-8")
+    body = HTML.format(
+        title=msg,
+        greeting=msg,
+        total=total,
+        items=items_html,
+        version=VERSION,
+    ).encode("utf-8")
     start_response(
         "200 OK",
         [
