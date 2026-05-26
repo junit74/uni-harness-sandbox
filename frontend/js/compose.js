@@ -5,7 +5,7 @@
 
   function makeTweet(text) {
     counter += 1;
-    return Object.freeze({
+    return {
       id: "t-new-" + counter,
       name: "나",
       handle: "@me",
@@ -13,15 +13,17 @@
       time: "방금",
       text: text,
       counts: { reply: 0, retweet: 0, like: 0, view: 1 },
-    });
+      liked: false,
+      retweeted: false,
+      bookmarked: false,
+    };
   }
 
   function publish(text) {
     var clean = (text || "").trim();
     if (!clean) return false;
-    // Replace the frozen seed array with a new frozen array containing the new tweet up top.
-    var next = [makeTweet(clean)].concat(Array.from(window.TWEETS));
-    window.TWEETS = Object.freeze(next);
+    // Prepend in place so existing tweet state (counts, liked, ...) survives the render.
+    window.TWEETS.unshift(makeTweet(clean));
     window.Feed.render();
     return true;
   }
