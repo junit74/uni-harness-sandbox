@@ -6,6 +6,7 @@ catch backend regressions. Started by qa-executor before each run.
 
 from __future__ import annotations
 
+from urllib.parse import parse_qs
 from wsgiref.simple_server import make_server
 
 from sandbox import greeting
@@ -33,7 +34,9 @@ HTML = (
 
 
 def app(environ, start_response):
-    msg = greeting("World")
+    params = parse_qs(environ.get("QUERY_STRING", ""))
+    name = params.get("name", [""])[0] or "World"
+    msg = greeting(name)
     total = cart_total(SAMPLE_CART, discount_percent=SAMPLE_DISCOUNT)
     body = HTML.format(title=msg, greeting=msg, total=total).encode("utf-8")
     start_response(
