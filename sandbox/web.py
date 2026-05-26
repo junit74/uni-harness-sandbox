@@ -26,7 +26,7 @@ HTML = (
     '<head><meta charset="utf-8"><title>{title}</title></head>\n'
     "<body>\n"
     '<h1 id="greeting">{greeting}</h1>\n'
-    '<p id="cart-total" data-total="{total}">Cart total: {total}</p>\n'
+    '<p id="cart-total" data-total="{total}">Cart total: ${total_display}</p>\n'
     "</body>\n"
     "</html>\n"
 )
@@ -35,7 +35,9 @@ HTML = (
 def app(environ, start_response):
     msg = greeting("World")
     total = cart_total(SAMPLE_CART, discount_percent=SAMPLE_DISCOUNT)
-    body = HTML.format(title=msg, greeting=msg, total=total).encode("utf-8")
+    body = HTML.format(title=msg, greeting=msg, total=total, total_display=f"{total:.2f}").encode(
+        "utf-8"
+    )
     start_response(
         "200 OK",
         [
