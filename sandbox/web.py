@@ -54,17 +54,24 @@ def render_items(items: list[dict]) -> str:
     )
 
 
-def app(environ, start_response):
+def render(cart: list[dict], discount_percent: float) -> str:
     msg = greeting("World")
-    total = cart_total(SAMPLE_CART, discount_percent=SAMPLE_DISCOUNT)
-    items_html = render_items(SAMPLE_CART)
-    body = HTML.format(
-        title=msg,
+    total = cart_total(cart, discount_percent=discount_percent)
+    count = len(cart)
+    noun = "item" if count == 1 else "items"
+    title = f"{msg} — Cart ({count} {noun})"
+    items_html = render_items(cart)
+    return HTML.format(
+        title=title,
         greeting=msg,
         total=total,
         items=items_html,
         version=VERSION,
-    ).encode("utf-8")
+    )
+
+
+def app(environ, start_response):
+    body = render(SAMPLE_CART, SAMPLE_DISCOUNT).encode("utf-8")
     start_response(
         "200 OK",
         [
