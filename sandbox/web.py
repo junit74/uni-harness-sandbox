@@ -32,10 +32,17 @@ HTML = (
 )
 
 
-def app(environ, start_response):
+def render(cart: list[dict], discount_percent: float) -> str:
     msg = greeting("World")
-    total = cart_total(SAMPLE_CART, discount_percent=SAMPLE_DISCOUNT)
-    body = HTML.format(title=msg, greeting=msg, total=total).encode("utf-8")
+    total = cart_total(cart, discount_percent=discount_percent)
+    count = len(cart)
+    noun = "item" if count == 1 else "items"
+    title = f"{msg} — Cart ({count} {noun})"
+    return HTML.format(title=title, greeting=msg, total=total)
+
+
+def app(environ, start_response):
+    body = render(SAMPLE_CART, SAMPLE_DISCOUNT).encode("utf-8")
     start_response(
         "200 OK",
         [
