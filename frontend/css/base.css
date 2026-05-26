@@ -8,8 +8,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  /* NOTE: hides any horizontal overflow at the page level. */
-  overflow-x: hidden;
 }
 
 body {
