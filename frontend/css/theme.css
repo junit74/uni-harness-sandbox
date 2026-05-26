@@ -6,10 +6,10 @@
   --text-muted: #536471;
   --border: #eff3f4;
 
-  /* Brand accent — Twitter blue. */
-  --accent: #1d9bf0;
-  --accent-hover: #1a8cd8;
-  --accent-soft: rgba(29, 155, 240, 0.1);
+  /* Brand accent — X-style monochrome. Derivatives cascade from --accent. */
+  --accent: #0f1419;
+  --accent-hover: color-mix(in srgb, var(--accent) 90%, white);
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
 
   --danger: #f4212e;
   --success: #00ba7c;
@@ -20,5 +20,5 @@
 }
 
 ::selection {
-  background: rgba(29, 155, 240, 0.25);
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
 }
