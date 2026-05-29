@@ -2,7 +2,7 @@
   "use strict";
 
   function fmt(n) {
-    if (n >= 10000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "K";
     return String(n);
   }
 
